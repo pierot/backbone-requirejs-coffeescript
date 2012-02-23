@@ -1,0 +1,16 @@
+# ------------------------------------------------------------------------- #
+# Start translating
+# syntax is really simple
+# key: value
+# 
+# More info @ http://yaml.org/spec/1.1/
+# ------------------------------------------------------------------------- #
+title: Dit is een titel in het Nederlands
+
+dynamic: Dit is een % titel
+
+contact:
+  title: "Contact titel"
+  sex:
+    - M
+    - V
