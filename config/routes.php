@@ -5,7 +5,10 @@
  */
 dispatch('/', 'index');
 
+// TEAMS
 dispatch('/api/teams', 'teams');
+dispatch_post('/api/teams', 'team_post');
+dispatch_put('/api/teams/:id', 'team_update');
 
 /**
  * This should be the last route definition

@@ -11,6 +11,7 @@ define (require, exports, module) ->
       @template = ich.register
       
       @model.clear()
+
       @model.bind 'change', @render
       @model.bind 'remove', @unrender
 
@@ -22,9 +23,23 @@ define (require, exports, module) ->
     unrender: ->
       $(@el).remove()
 
-    submit: ->
-      # @model.
-      # app.navigate('team/' + @model.id, true)
+    submit: (e) ->
+      e?.preventDefault()
+
+      @model.save {
+        name: $(@el).find('#name').val()
+        members: $(@el).find('#members').val()
+      }, success: (model, resp) =>
+        console.log(model)
+        console.log(resp)
+
+        @model = model
+
+        app.navigate('team/' + @model.id, true)
+      , error: (err) =>
+        console.log(err)
+      
+      return false
 
     events:
       'click button': 'submit'
