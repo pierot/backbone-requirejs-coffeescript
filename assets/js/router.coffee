@@ -11,6 +11,16 @@ define (require, exports, module) ->
   TeamList = require 'cs!models/team_list'
   Team = require 'cs!models/team'
 
+  class AppView
+    show_view: (view) ->
+      if @current_view
+        @current_view.close()
+
+      @current_view = view
+      @current_view.render()
+
+      $('#content').html(@current_view.el)
+
   class AppRouter extends Backbone.Router
     routes:
       '': 'list'
@@ -22,7 +32,7 @@ define (require, exports, module) ->
 
       ':notfound': 'not_found'
 
-    initialize: () ->
+    initialize: (@app_view) ->
       @menu_data = new Generic
       @menu_data.set template: 'menu'
 
@@ -31,38 +41,41 @@ define (require, exports, module) ->
 
     list: ->
       @before () =>
-        unless @team_list_view
-          @team_list_view = new TeamListView collection: @team_list, el: $('#content')
+        team_list_view = new TeamListView collection: @team_list
 
-        @team_list_view.render()
+        @app_view.show_view(team_list_view)
 
     team_details: (id) ->
       @before () =>
         team = @team_list.get(id)
 
-        team_detail_view = new TeamDetailView model: team, el: $('#content')
-        team_detail_view.render()
+        team_detail_view = new TeamDetailView model: team
+
+        @app_view.show_view(team_detail_view)
 
     register: () ->
       @before () =>
         team = new Team
 
-        page_view = new RegisterView model: team, el: $('#content')
-        page_view.render()
+        page_view = new RegisterView model: team
+
+        @app_view.show_view(page_view)
 
     info: () ->
       page_data = new Generic
       page_data.set template: 'info'
 
       page_view = new GenericView model: page_data, el: $('#content')
-      page_view.render()
+
+      @app_view.show_view(page_view)
 
     not_found: () ->
       generic_page = new Generic
       generic_page.set template: 'not_found'
 
       generic_view = new GenericView model: generic_page, el: $('#content')
-      generic_view.render()
+
+      @app_view.show_view(generic_view)
 
     before: (callback) ->
       if @team_list
@@ -72,3 +85,5 @@ define (require, exports, module) ->
         @team_list.fetch { success: () =>
           callback() if callback
         }
+
+  module.exports = {AppRouter: AppRouter, AppView: AppView}

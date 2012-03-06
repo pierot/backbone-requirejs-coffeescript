@@ -17,7 +17,15 @@ function team_post() {
 }
 
 function team_update() {
-  return $_POST;
+  syslog(LOG_WARNING, $_POST);
 
-  // return json_encode(array());
+  $id = params('id');
+
+  return json_encode(array('id' => $id, 'name' => 'Aartselaar SK', 'members' => 11));
+}
+
+function team_get() {
+  $id = params('id');
+
+  return json_encode(array('id' => $id, 'name' => 'Aartselaar SK', 'members' => 11));
 }

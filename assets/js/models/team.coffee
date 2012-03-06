@@ -1,26 +1,28 @@
 define (require, exports, module) ->
   Backbone = require 'backbone'
+  _ = require 'underscore'
 
   class Team extends Backbone.Model
     url: () ->
       base = window.base_url + 'api/' + 'teams'
       
       return base if @isNew()
-      return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + this.id
+      return base + '/' + this.id
 
     validate: (attrs) ->
-      console.log(attrs.name)
-      if attrs.name && attrs.name.length == 0
+      if _.isEmpty(attrs.name)
         return 'Name must be set'
 
-      if attrs.members && attrs.members < 1
+      if attrs.members < 1
         return 'A team needs a least 1 member'
 
     defaults:
       id: 0
-      name: 'Ploeg'
-      members: 2
+      name: ''
+      members: null
 
     initialize: () ->
       @bind 'error', (model, error) =>
-        console.log(model.get('title') + " " + error)
+        console.log(model)
+        console.log('error: ' + error)
+        console.log('error: ' + model.get('name') + " " + error)

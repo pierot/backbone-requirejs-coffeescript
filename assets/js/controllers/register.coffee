@@ -10,8 +10,6 @@ define (require, exports, module) ->
 
       @template = ich.register
       
-      @model.clear()
-
       @model.bind 'change', @render
       @model.bind 'remove', @unrender
 
@@ -26,18 +24,32 @@ define (require, exports, module) ->
     submit: (e) ->
       e?.preventDefault()
 
-      @model.save {
+      attributes = {
         name: $(@el).find('#name').val()
         members: $(@el).find('#members').val()
-      }, success: (model, resp) =>
-        console.log(model)
-        console.log(resp)
+      }
 
-        @model = model
+      options = {
+        success: (model, resp) =>
+          console.log('success')
 
-        app.navigate('team/' + @model.id, true)
-      , error: (err) =>
-        console.log(err)
+          console.log(model)
+          console.log(resp)
+
+          @model = model
+
+          app.navigate('team/' + @model.id, true)
+
+        error: (model, error) =>
+          console.log('error')
+
+          if error.status in [400..599]
+            alert('Error registering')
+          else
+            alert(error)
+      }
+
+      @model.save attributes, options
       
       return false
 
