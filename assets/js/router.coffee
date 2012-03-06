@@ -65,7 +65,7 @@ define (require, exports, module) ->
       page_data = new Generic
       page_data.set template: 'info'
 
-      page_view = new GenericView model: page_data, el: $('#content')
+      page_view = new GenericView model: page_data
 
       @app_view.show_view(page_view)
 
@@ -73,7 +73,7 @@ define (require, exports, module) ->
       generic_page = new Generic
       generic_page.set template: 'not_found'
 
-      generic_view = new GenericView model: generic_page, el: $('#content')
+      generic_view = new GenericView model: generic_page
 
       @app_view.show_view(generic_view)
 

@@ -6,7 +6,7 @@
 dispatch('/', 'index');
 
 // TEAMS
-dispatch('/api/teams', 'teams');
+dispatch('/api/teams', 'teams_all');
 dispatch_post('/api/teams', 'team_post');
 dispatch_put('/api/teams/:id', 'team_update');
 dispatch_get('/api/teams/:id', 'team_get');
