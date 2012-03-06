@@ -4,14 +4,17 @@ define (require, exports, module) ->
   $ = require 'jquery'
   ich = require 'ich'
 
-  class RegisterView extends Backbone.View
+  utils = require 'cs!utils'
+  BaseView = utils.BaseView
+
+  class RegisterView extends BaseView
     initialize: ->
       _.bindAll @
 
       @template = ich.register
       
-      @model.bind 'change', @render
-      @model.bind 'remove', @unrender
+      @bind_to @model, 'change', @render
+      @bind_to @model, 'remove', @unrender
 
     render: ->
       $(@el).html @template(@model.toJSON())

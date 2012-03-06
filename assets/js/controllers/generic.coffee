@@ -4,7 +4,10 @@ define (require, exports, module) ->
   $ = require 'jquery'
   ich = require 'ich'
 
-  class GenericView extends Backbone.View
+  utils = require 'cs!utils'
+  BaseView = utils.BaseView
+
+  class GenericView extends BaseView
     initialize: ->
       _.bindAll @
 

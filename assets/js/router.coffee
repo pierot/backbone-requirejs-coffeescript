@@ -1,6 +1,7 @@
 define (require, exports, module) ->
   Backbone = require 'backbone'
   $ = require 'jquery'
+  _ = require 'underscore'
 
   TeamListView = require 'cs!controllers/team_list'
   TeamDetailView = require 'cs!controllers/team_detail'

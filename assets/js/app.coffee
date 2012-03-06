@@ -8,15 +8,6 @@ define (require, exports, module) ->
   AppRouter = router.AppRouter
   AppView = router.AppView
 
-  # class Backbone.View extends Backbone.View
-  #   close: () ->
-  #     @remove()
-  #     @unbind()
-
-  Backbone.View.prototype.close = () ->
-    this.remove()
-    this.unbind()
-
   $ ->
     utils.tpl.loadTemplates ['team', 'team_detail', 'team_list', 'not_found', 'menu', 'info', 'register'], ->
       window.app = new AppRouter(new AppView)

@@ -4,18 +4,21 @@ define (require, exports, module) ->
   $ = require 'jquery'
   ich = require 'ich'
 
+  utils = require 'cs!utils'
+  BaseView = utils.BaseView
+
   Team = require 'cs!models/team'
   TeamView = require 'cs!controllers/team'
 
-  class TeamListView extends Backbone.View
+  class TeamListView extends BaseView
     initialize: ->
       _.bindAll @
 
       @template = ich.team_list
-      
-      @collection.bind 'add', @appendItem
-      @collection.bind 'change', @render
-      @collection.bind 'reset', @render
+     
+      @bind_to @collection, 'add', @appendItem
+      @bind_to @collection, 'change', @render
+      @bind_to @collection, 'reset', @render
 
     render: ->
       $(@el).html @template

@@ -4,7 +4,10 @@ define (require, exports, module) ->
   $ = require 'jquery'
   ich = require 'ich'
 
-  class TeamView extends Backbone.View
+  utils = require 'cs!utils'
+  BaseView = utils.BaseView
+
+  class TeamView extends BaseView
     tagName: 'li'
 
     initialize: ->
@@ -12,8 +15,8 @@ define (require, exports, module) ->
 
       @template = ich.team
 
-      @model.bind 'change', @render
-      @model.bind 'remove', @unrender
+      @bind_to @model, 'change', @render
+      @bind_to @model, 'remove', @unrender
 
     render: ->
       $(@el).html @template(@model.toJSON())

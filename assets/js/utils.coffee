@@ -2,6 +2,32 @@ define (require, exports, module) ->
   $ = require 'jquery'
   ich = require 'ich'
 
+  # Backbone.View.prototype.close = () ->
+  #   this.remove()
+  #   this.unbind()
+
+  class BaseView extends Backbone.View
+    constructor: (options) ->
+      @bindings = []
+
+      super options
+
+    bind_to: (model, event, callback) ->
+      model.bind event, callback, @
+
+      @bindings.push {model: model, event: event, callback: callback}
+
+    unbind_all: ->
+      _.each @bindings, (binding) ->
+        binding.model.unbind binding.event, binding.callback
+
+      @bindings = []
+
+    close: () ->
+      @unbind_all()
+      @unbind()
+      @remove()
+
   tpl =
     # Recursively pre-load all the templates for the app.
     # This implementation should be changed in a production environment. 
@@ -25,4 +51,4 @@ define (require, exports, module) ->
           callback()
       , 'html'
 
-  module.exports = {tpl: tpl}
+  module.exports = {tpl: tpl, BaseView: BaseView}
