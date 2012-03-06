@@ -37,6 +37,7 @@ define (require, exports, module) ->
           console.log(resp)
 
           @model = model
+          window.app.team_list.add @model
 
           app.navigate('team/' + @model.id, true)
 

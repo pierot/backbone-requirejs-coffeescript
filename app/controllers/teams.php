@@ -11,9 +11,9 @@ function teams() {
 }
 
 function team_post() {
-  return $_POST;
+  $data = json_decode(file_get_contents('php://input'));
 
-  // return json_encode(array());
+  return json_encode(array('id' => rand() * 99999, 'name' => $data->name, 'members' => $data->members));
 }
 
 function team_update() {

@@ -17,7 +17,7 @@ define (require, exports, module) ->
         return 'A team needs a least 1 member'
 
     defaults:
-      id: 0
+      id: null
       name: ''
       members: null
 
