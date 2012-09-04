@@ -8,13 +8,10 @@
 	
   <title>Backbone Team App</title>
 
-  <link rel="stylesheet/less" href="<?php echo($base_path); ?>assets/css/style.less" />
-  <script src="//lesscss.googlecode.com/files/less-1.2.1.min.js"></script>
+  <link rel="stylesheet" href="<?php echo($base_path); ?>assets/css/style.css" />
 
-  <script>
-    window.base_url = '<?php echo($base_path); ?>';
-  </script>
-  <script data-main="<?php echo($base_path); ?>assets/js/main" src="//requirejs.org/docs/release/1.0.6/minified/require.js"></script>
+  <script>window.base_url = '<?php echo($base_path); ?>';</script>
+  <script data-main="<?php echo($base_path); ?>assets/js/main" src="<?php echo($base_path); ?>assets/js/libs/require-min.js"></script>
 </head>
 <body>
 
